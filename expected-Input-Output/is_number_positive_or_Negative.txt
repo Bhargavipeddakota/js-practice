@@ -1,0 +1,7 @@
+Expected Input Output To Check A Number Is Positive Or Negative
+| input     |   output      |
+|1          |  1 is positive| 
+|-2         | -2 is Negative| 
+|-3         | -3 is negative| 
+|4          |  4 is positive| 
+|5          |  5 is positive|
