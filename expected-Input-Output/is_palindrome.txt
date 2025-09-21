@@ -1,0 +1,12 @@
+Expected Input and Output for palindrome
+| input     |   output |
+|0          |  0 is palindrome        | 
+|1          |  1 is palindrome        | 
+|2          |  2 is palindrome        | 
+|3          |  3 is palindrome        | 
+|11         |  11 is palindrome       | 
+|13         |  13 is not a palindrome |
+|111        |  111 is palindrome      | 
+|100        |  100 is not palindrome  | 
+|121        |  121 is palindrome      | 
+|125        |  125 is  not palindrome | 
