@@ -1,10 +1,11 @@
 const number = 30
 let reverseNumber = 0;
 let copyNumber = number;
-let lastdigit =0;
+let lastDigit = 0;
 while(copyNumber > 0) {
-  lastdigit = copyNumber % 10;
-  copyNumber = (copyNumber-lastdigit)/10;
-  reverseNumber =  reverseNumber * 10 + lastdigit;
+  lastDigit = copyNumber % 10;
+  copyNumber = (copyNumber-lastDigit)/10;
+  reverseNumber =  reverseNumber * 10 + lastDigit;
 }
-console.log(number," reverse =", reverseNumber);
+console.log("reverse of", number,"=>",reverseNumber);
+ 
