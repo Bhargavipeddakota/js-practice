@@ -76,8 +76,8 @@ function playRound() {
     }
   }
 }
-function main() {
+function play() {
   showDescreption();
   playRound();
 }
-main();
+play();
