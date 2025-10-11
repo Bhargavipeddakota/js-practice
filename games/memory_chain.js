@@ -1,3 +1,21 @@
+function showDescreption() {
+  console.clear();
+  console.log(`                  🧠 Welcome to the MEMORY CHAIN Game! 🧩 `);
+  console.log("-".repeat(100));
+
+  console.log(`
+How to Play:\n
+ 👉🏻 The computer will show you one random word.\n
+ 👉🏻 Memorize it carefully!\n
+ 👉🏻 Then, you must enter the full sequence of all words shown so far — 
+    from the first to the newest — separated by spaces.\n
+ 👉🏻 If you type the correct sequence, the game continues to the next round.\n
+ 👉🏻 If you make a mistake... ❌ the game ends!\n
+
+ 🎯 Goal: Remember as long a sequence as you can!\n`);
+  prompt("      Press ENTER to star game")
+
+}
 const options = ["book", "blue", "moon", "yellow", "pink", "banana", "black"];
 let sequence = [];
 let round = 1;
@@ -13,8 +31,8 @@ function addNewElement() {
 }
 
 function showNewElement(element) {
-  console.log("\nRound" + round + "Memorize the new Element! ");
-  console.log(element);
+  console.log("Round " + round + "  Memorize the new Element! \n");
+  console.log("👉🏻 ", element + "\n");
 }
 
 function getUserInput() {
@@ -34,22 +52,32 @@ function isCorrect(input) {
   }
   return true;
 }
+function composeGameEndMessage() {
+  console.log(`----- GAME OVER ----- \n`);
+  console.log(` ☑️ Correct sequence : ${sequence}\n`);
+  console.log(` Score🏆 : ${round - 1}\n`);
+  console.log("-".repeat(30));
+}
 
 function playRound() {
+  console.clear();
   let active = true;
   while (active) {
     const newElement = addNewElement();
     showNewElement(newElement);
     const input = getUserInput();
-    console.log(isCorrect(input));
     if (isCorrect(input)) {
       console.log("✅ Correct Next Round ComingUp");
       console.clear();
       round++;
     } else {
-      console.log(`--- GAME OVER --- \n Score : ${round - 1}`);
+      composeGameEndMessage();
       active = false;
     }
   }
 }
-playRound();
+function main() {
+  showDescreption();
+  playRound();
+}
+main();
