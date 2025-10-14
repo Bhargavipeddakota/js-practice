@@ -61,13 +61,12 @@ function getPlayerDetalis() {
   const players = [];
   players[0] = prompt("enter player1 name");
   players[1] = prompt("enter player2 name");
-  const positions = [1, 1];
+  const positions = [92, 92];
   return [players, positions]
 }
 function isSnake(number) {
   for (let index = 0; index < SNAKES.length; index++) {
-    let snake = SNAKES[index];
-    if (snake[0] === number) {
+    if (SNAKES[index][0] === number) {
       return true;
     }
   }
@@ -76,8 +75,7 @@ function isSnake(number) {
 
 function isLadder(number) {
   for (let index = 0; index < SNAKES.length; index++) {
-    let ladder = LADDERS[index];
-    if (ladder[0] === number) {
+    if (LADDERS[index][0] === number) {
       return true;
     }
   }
@@ -86,18 +84,17 @@ function isLadder(number) {
 
 function getTailValue(number) {
   for (let index = 0; index < SNAKES.length; index++) {
-    let snake = SNAKES[index];
-    if (snake[0] === number) {
-      return snake[1];
+    ;
+    if (SNAKES[index][0] === number) {
+      return SNAKES[index][1];
     }
   }
 }
 
 function getLadderValue(number) {
   for (let index = 0; index < SNAKES.length; index++) {
-    let ladder = LADDERS[index];
-    if (ladder[0] === number) {
-      return ladder[1];
+    if (LADDERS[index][0] === number) {
+      return LADDERS[index][0];
     }
   }
 }
@@ -112,25 +109,22 @@ function checkSnakeOrLadder(position) {
   return position;
 }
 
-function hasWon(positions) {
-  if (positions[0] === 100 || positions[1] === 100) {
-    return true;
-  }
-  return false;
+function hasWon(positions, turn) {
+  return positions[turn] === 100;
 }
 
 function getPosition(positions, index) {
   prompt("press Enter to rollDice");
   let newPos = positions[index] + rolldice();
   if (newPos > 100) {
-    positions[index] = positions[index];
+    return positions[index] = positions[index];
   }
   positions[index] = checkSnakeOrLadder(newPos);
   return positions[index];
 }
 
-function composeWinMessage(params) {
-  console.log(`win`);
+function composeWinMessage(players, turn) {
+  console.log(`${players[turn]}  🏆 Win The Game`);
 }
 
 function playGame() {
@@ -140,11 +134,11 @@ function playGame() {
   let positions = data[1];
   let turn = 0;
   while (true) {
+    if (hasWon(positions, turn)) {
+      return composeWinMessage(players, turn);
+    }
     drawBoard(positions);
     getPosition(positions, turn);
-    if (hasWon(positions)) {
-      return composeWinMessage();
-    }
     turn = (turn + 1) % 2;
   }
 }
