@@ -14,6 +14,15 @@ function getCellSymbol(number, positions) {
   if (positions[1] === number) {
     return "2️⃣";
   }
+  if (number === 100) {
+    return "🏁";
+  }
+  if (isLadder(number)) {
+    return "🪜";
+  }
+  if (isSnake(number)) {
+    return "𓆗";
+  }
   return number + "";
 }
 
@@ -31,7 +40,7 @@ function getRows(size, board, positions) {
     let row = [];
     for (let col = 0; col < size; col++) {
       let cellValue = getCellSymbol(number, positions);
-      row.push(cellValue.padStart(3, " "));
+      row.push(cellValue.padStart(4, " "));
       number--;
     }
 
@@ -55,6 +64,60 @@ function getPlayerDetalis() {
   const positions = [1, 1];
   return [players, positions]
 }
+function isSnake(number) {
+  for (let index = 0; index < SNAKES.length; index++) {
+    let snake = SNAKES[index];
+    if (snake[0] === number) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function isLadder(number) {
+  for (let index = 0; index < SNAKES.length; index++) {
+    let ladder = LADDERS[index];
+    if (ladder[0] === number) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function getTailValue(number) {
+  for (let index = 0; index < SNAKES.length; index++) {
+    let snake = SNAKES[index];
+    if (snake[0] === number) {
+      return snake[1];
+    }
+  }
+}
+
+function getLadderValue(number) {
+  for (let index = 0; index < SNAKES.length; index++) {
+    let ladder = LADDERS[index];
+    if (ladder[0] === number) {
+      return ladder[1];
+    }
+  }
+}
+
+function checkSnakeOrLadder(position) {
+  if (isSnake(position)) {
+    return getTailValue(position);
+  }
+  if (isLadder(position)) {
+    return getLadderValue(position);
+  }
+  return position;
+}
+
+function hasWon(positions) {
+  if (positions[0] === 100 || positions[1] === 100) {
+    return true;
+  }
+  return false;
+}
 
 function getPosition(positions, index) {
   prompt("press Enter to rollDice");
@@ -62,12 +125,12 @@ function getPosition(positions, index) {
   if (newPos > 100) {
     positions[index] = positions[index];
   }
-  positions[index] = newPos;
+  positions[index] = checkSnakeOrLadder(newPos);
   return positions[index];
 }
 
-function movePlayer(positions, turn) {
-  let nextPos = getPosition(positions, turn);
+function composeWinMessage(params) {
+  console.log(`win`);
 }
 
 function playGame() {
@@ -78,7 +141,10 @@ function playGame() {
   let turn = 0;
   while (true) {
     drawBoard(positions);
-    movePlayer(positions, turn);
+    getPosition(positions, turn);
+    if (hasWon(positions)) {
+      return composeWinMessage();
+    }
     turn = (turn + 1) % 2;
   }
 }
