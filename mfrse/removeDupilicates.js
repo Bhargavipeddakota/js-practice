@@ -1,16 +1,16 @@
-const reducer = function(array,currentElement){
+const reducer = (array,currentElement) => {
   if(!array.includes(currentElement)){
     array.push(currentElement);
   }
   return array;
 }
-const array = [["Orion", "Leo"],["Taurus"],["Orion", "Gemini","Orion"],["Gemini"] ];
-const removeDuplicates = array => array.flat().reduce(reducer,[]);
+const mirror = (x) => x;
+const removeDuplicates = array => array.flatMap(mirror).reduce(reducer,[]);
 
-console.log(removeDuplicates(array));
+function main(){
+console.log(removeDuplicates([["Orion", "Leo"],["Taurus"],["Orion", "Gemini"]]));
+console.log(removeDuplicates(["sparrow", "eagle","crow", "sparrow", "eagle", "crow"]));
+console.log(removeDuplicates([["Asha", "Ravi", "Neel"],["Ravi"],["Asha", "Meera"]]));
+}
 
-const birds = ["sparrow", "eagle","crow", "sparrow", "eagle", "crow"];
-console.log(removeDuplicates(birds));
-
-const studentNames = [["Asha", "Ravi", "Neel"],["Ravi"],["Asha", "Meera"]];
-console.log(removeDuplicates(studentNames));
+main();
