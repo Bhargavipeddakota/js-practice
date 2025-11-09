@@ -7,3 +7,6 @@ console.log(removeDupilicates(array));
 
 const birds = ["sparrow", "eagle","crow", "sparrow", "eagle", "crow"];
 console.log(removeDupilicates(birds));
+
+const studentNames = [["Asha", "Ravi", "Neel"],["Ravi"],["Asha", "Meera"]];
+console.log(removeDupilicates(studentNames));
