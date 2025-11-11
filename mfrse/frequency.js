@@ -5,14 +5,12 @@ const string =
   "Big black bugs bleed blue black blood but baby black bugs bleed blue blood";
 const words = string.split(" ");
 
-const occurence = (frequency, currentElement) => {
-  const result = frequency.find((x) => x[0] === currentElement);
-  if (!result) {
-    frequency.push([currentElement, 1]);
-    return frequency;
+const occurence = (frequency, target) => {
+  if (!(target in frequency)) {
+    frequency[target] = 0;
   } 
-    result[1] += 1;
+  frequency[target] += 1;
   return frequency;
-};
+}
 
-console.log(words.reduce(occurence, []));
+console.log(words.reduce(occurence, {}));

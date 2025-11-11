@@ -6,7 +6,7 @@ const zebra = "z"
 let previousAnimal = " ";
 let index;
 for (index = 0; index < animalSequence.length; index++) {
-  let currentValue = animalSequence[index];
+  const currentValue = animalSequence[index];
   if (currentValue === lion || currentValue === zebra) {
     if (currentValue !== previousAnimal && previousAnimal !== " ") {
       minimumDistance = (distance < minimumDistance || minimumDistance === -1) ? distance : minimumDistance;
