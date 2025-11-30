@@ -16,7 +16,14 @@ How to Play:\n
   prompt("      Press ENTER to star game")
 
 }
-const options = ["book", "blue", "moon", "yellow", "pink", "banana", "black"];
+function collectionOfWords() {
+  const str1 = "book,blue,moon,yellow,pink,banana,black,red,green,purple,";
+  const str2 = "tree,cat,rat,bag,bat,ring,sun,star,pen,ice,monkey,donkey";
+  return (str1 + str2).split(",");
+}
+
+const options = collectionOfWords();
+console.log(options);
 let sequence = [];
 let round = 1;
 function getRandomOption() {
@@ -36,7 +43,7 @@ function showNewElement(element) {
 }
 
 function getUserInput() {
-  const input = prompt("Enter The Full Sequence With sapace");
+  const input = prompt("Enter The Full Sequence With space");
   return input.trim().split(" ").slice(0, sequence.length);
 }
 
@@ -54,7 +61,7 @@ function isCorrect(input) {
 }
 function composeGameEndMessage() {
   console.log(`----- GAME OVER ----- \n`);
-  console.log(` ☑️ Correct sequence : ${sequence}\n`);
+  console.log(` ☑️ Correct sequence is : ${sequence}\n`);
   console.log(` Score🏆 : ${round - 1}\n`);
   console.log("-".repeat(30));
 }

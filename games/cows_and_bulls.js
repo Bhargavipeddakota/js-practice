@@ -99,7 +99,7 @@ function playCowsAndBulls(attempts, maxAttempts, secreateNumber) {
 
 function play() {
   const secreateNumber = generateSecreateNumber();
-  console.log(secreateNumber);
+  // console.log(secreateNumber);
   let attempts = 0;
   const maxAttempts = parseInt(prompt(NoOfAttempts()));
   console.log(`\n A Secret Number has been chosen \n you have ${maxAttempts} attempts\n`);

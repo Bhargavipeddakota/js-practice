@@ -5,7 +5,7 @@ function custom(text, code) {
 const message = Deno.args[0] || 'Enter something via terminal';
 
 function delay() {
-  for (let _ = 0; _ < 11e8; _++);
+  for (let _ = 0; _ < 10e8; _++);
 }
 
 function animateText(text) {
@@ -14,30 +14,16 @@ function animateText(text) {
   console.clear();
 
 }
-const man = [`
- (o _ o)/
-<)     )
- /     \\`,
-  `\\(- _ -)
-   (     (>
-   /     \\`,
-  `\(o _ o)/
-  )     (
-  /     \\`,
-  `(- _ -)
-<)     (>`,
-  `(o _ o)
--)   -(
- /    \\`,
-  `(o _ o)
- )-    (-
- /    \\`
-]
-// let t = '( -  _  - )'.repeat(1) + '\n';
-// let c = '( O  _  O )'.repeat(1) + '\n';
+const buffer = [];
+let t = '( -  _  - )'.repeat(1) + '\n';
+let c = '( O  _  O )'.repeat(1) + '\n';
 // for (let index = 0; index < message.length; index++) {
 // buffer.push(message[index]);
 let current = 0;
 while (true) {
-  animateText(man[current++ % man.length]);
+
+  // animateText(buffer.join(''));
+  // animateText(hangman[current++ % hangman.length]);
+  animateText(c);
+  animateText(t);
 }

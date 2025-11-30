@@ -1,7 +1,7 @@
 function rolldice() {
   return Math.floor(Math.random() * 6) + 1;
 }
-const SNAKES = [[99, 54], [93, 67], [87, 54], [70, 55], [52, 42], [48, 16], [28, 10]];
+const SNAKES = [[99, 54], [93, 67], [87, 54], [70, 55], [52, 42],[59,38],[48, 16], [28, 10]];
 const LADDERS = [[9, 27], [18, 37], [25, 54], [33, 51], [56, 64], [68, 88], [79, 100], [76, 97]];
 
 function getCellSymbol(number, positions) {
@@ -21,9 +21,13 @@ function getCellSymbol(number, positions) {
     return "🪜";
   }
   if (isSnake(number)) {
-    return "𓆗";
+    return "🐍";
   }
   return number + "";
+}
+
+function bgRed(text) {
+  return "\x1B[41m" + text + "\x1B[0m";
 }
 
 function drawBoard(positions) {
@@ -61,7 +65,7 @@ function getPlayerDetalis() {
   const players = [];
   players[0] = prompt("enter player1 name");
   players[1] = prompt("enter player2 name");
-  const positions = [92, 92];
+  const positions = [1, 1];
   return [players, positions]
 }
 function isSnake(number) {
@@ -113,22 +117,26 @@ function hasWon(positions, turn) {
   return positions[turn] === 100;
 }
 
-function getPosition(positions, index) {
-  prompt("press Enter to rollDice");
+function getPosition(positions, index, players) {
+  prompt(`press Enter to rollDice ${players[index]}`);
   let newPos = positions[index] + rolldice();
   if (newPos > 100) {
     return positions[index] = positions[index];
   }
   positions[index] = checkSnakeOrLadder(newPos);
-  return positions[index];
 }
 
 function composeWinMessage(players, turn) {
   console.log(`${players[turn]}  🏆 Win The Game`);
 }
 
+function showMsg(positions, players, turn) {
+  console.log("-".repeat(20));
+  console.log(`\n ${players[turn]} \n position : ${positions[turn]}\n`);
+  console.log("-".repeat(20));
+}
+
 function playGame() {
-  console.clear();
   const data = getPlayerDetalis();
   let players = data[0];
   let positions = data[1];
@@ -138,7 +146,8 @@ function playGame() {
       return composeWinMessage(players, turn);
     }
     drawBoard(positions);
-    getPosition(positions, turn);
+    getPosition(positions, turn, players);
+    showMsg(positions, players, turn);
     turn = (turn + 1) % 2;
   }
 }
