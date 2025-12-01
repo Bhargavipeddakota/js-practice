@@ -14,16 +14,14 @@ function animateText(text) {
   console.clear();
 
 }
-const buffer = [];
-let t = '( -  _  - )'.repeat(1) + '\n';
-let c = '( O  _  O )'.repeat(1) + '\n';
-// for (let index = 0; index < message.length; index++) {
-// buffer.push(message[index]);
+const buffer = []
+for (let index = 0; index < message.length; index++) {
+buffer.push(message[index]);}
 let current = 0;
 while (true) {
 
   // animateText(buffer.join(''));
-  // animateText(hangman[current++ % hangman.length]);
-  animateText(c);
-  animateText(t);
+  animateText(buffer[current++ % buffer.length]);
+  // animateText(c);
+  // animateText(t);
 }

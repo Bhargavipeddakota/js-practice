@@ -1,45 +1,33 @@
+import * as allFunc from "./commonFunctions.js";
+
 const rolldice = () => Math.floor(Math.random() * 10) + 1;
-
-const createScreen = (width, height) => {
-  const screen = [];
-  for (let i = 0; i < height; i++) {
-    screen.push([..."_".repeat(width), "🏁"]);
-  }
-  return screen;
-};
-
-const display = (screen) => {
-  for (const i in screen) {
-    console.log(screen[i].join(""));
-  }
-};
-
-const clearScreen = (screen) => {
-  for (const i in screen) {
-    for (const j in screen[i]) {
-      screen[i][j] = "_";
-      screen[0][103] = "🏁";
-    }
-  }
-};
 
 const drawOnScreen = (screen, y, x, char) => screen[y][x] = char;
 
-const animate = () => {
-  const screen = createScreen(103, 1);
-  let move = 0;
-  setInterval(() => {
-    prompt("press enter to move");
-    move += rolldice();
-    move = (move+1)% 104;
+
+const animate = (startPos = 0) => {
+  const screen = allFunc.createScreen(103, 1);
+  let diceRoll = rolldice();
+  prompt(`You rolled: ${diceRoll}! Press OK to start running.`);
+  let position = startPos;
+let stepsTaken = 0;
+  const interval = setInterval(() => {
     console.clear();
-    drawOnScreen(screen, 0, move, "🏃‍➡️");
-    display(screen);
-    clearScreen(screen);
-  }, 100);
+    allFunc.clearScreen(screen);
+    drawOnScreen(screen, 0, position, "🏃‍➡️");
+    allFunc.display(screen);
+
+    position++;
+    stepsTaken++;
+    if (stepsTaken >= diceRoll) {
+      clearInterval(interval);
+      animate(position);
+    }
+  }, 200);
 };
 
 const main = () => {
   animate();
 };
+
 main();
