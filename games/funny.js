@@ -1,25 +1,36 @@
 import * as allFunc from "./commonFunctions.js";
 const drawOnScreen = (screen, y, x, char) => screen[y][x] = char;
 
+  const updateObject = (angle,x1,x2) => {
+    return {
+    y1 : 1+ Math.sin(angle),
+    y2 : 1+Math.sin(angle),
+    x1 : x1++,
+    x2:x2--,
+    }
+  }
+
 const animate = () => {
   let screen = allFunc.createScreen(50, 7, "~");
-  let x1 = 0;
-  let x2 = 49;
-  let y1 = [0, 1, 2, 1];
-  let y2 = [3, 4, 5, 4];
-  let i = 0;
+  let object = {
+    x1 : 0,
+   x2 : 49,
+   y1 : 0,
+   y2 : 0,
+  }
+  let angle  = 0;
   setInterval(() => {
-    const fish1 = "><(((O>";
-    const fish2 = "<O)))><";
+    const fishes = { fish1: "><(((O>", fish2 :"<O)))><"};
     console.clear();
-    drawOnScreen(screen, y1[i % 4], x1++ % 50, fish1);
-    drawOnScreen(screen, y2[i % 4], x2--, fish2);
+  const  {y1,y2,x1,x2} = updateObject(angle,object);
+    drawOnScreen(screen, y1, x1, fishes.fish1);
+    drawOnScreen(screen, y2, x2, fishes.fish2);
     allFunc.display(screen);
     allFunc.clearScreen(screen, "~");
     if (x2 <= 0) {
       x2 = 50;
     }
-    i++;
+    object.angle++;
   }, 200);
 };
 animate();

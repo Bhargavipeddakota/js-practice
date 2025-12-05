@@ -27,7 +27,7 @@ let angle = 1;
 const radious = 10;
 
 setInterval(() => {
-  // clearScreen(screen);
+  clearScreen(screen);
   const y = Math.floor(10 + radious * 0.5* Math.sin(angle*(Math.PI/180)));
   const x = Math.floor(10 + radious * Math.cos(angle * (Math.PI/180)));
    console.clear();

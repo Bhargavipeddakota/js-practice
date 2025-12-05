@@ -11,6 +11,7 @@ export const display = (screen,) => {
     console.log(screen[i].join(" ").slice(0,99));
   }
 };
+export const drawOnScreen = (screen, y, x, char) => screen[y][x] = char;
 export const clearScreen = (screen,char) => {
   for (const i in screen) {
     for (const j in screen[i]) {
