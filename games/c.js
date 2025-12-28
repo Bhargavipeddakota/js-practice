@@ -1,57 +1,44 @@
+import {createScreen,clearScreen,drawObject} from "./commonFunctions.js";
 
-function sqr(x) {
-  return x * x;
+const display = (screen) => {
+  console.log(screen.map((r) => r.join("")).join("\n"));
+};
+
+const updateObject = (obj) => {
+  const rad = obj.angle * (Math.PI / 180);
+  obj.x = Math.floor(obj.cx + obj.radius * Math.cos(rad));
+  obj.y = Math.floor(obj.cy + obj.radius * 0.5 * Math.sin(rad));
+  obj.angle = obj.angle+1;
+};
+
+const screen = createScreen(50, 20, " ");
+
+const objects = [];
+const centerX = 25;
+const centerY = 10;
+const radius = 7;
+
+for (let i = 0; i < 10; i++) {
+  objects.push({
+    x: 0,
+    y: 0,
+    angle: i * (360 / 10),
+    // angle :(i*100),
+    char: "⏺",
+    radius,
+    cx: centerX,
+    cy: centerY,
+  });
 }
 
-function distanceBetween(p1, p2) {
-  const deltaX = p1[0] - p2[0];
-  const deltaY = p1[1] - p2[1];
-  return Math.sqrt(sqr(deltaX) + sqr(deltaY));
-}
+setInterval(() => {
+  clearScreen(screen);
 
-function chooseChar(d, radius) {
-  if (d > radius) {
-    return '⬜️';
-  }
-  const ratio = d / radius;
-  if (ratio > 0.8) {
-    return '🟥';
-  }
-  if (ratio > 0.6) {
-    return '🟨';
-  }
-  if (ratio > 0.4) {
-    return '🟩';
-  }
-  if (ratio > 0.2) {
-    return '🟦';
-  }
-  return '🟫';
-}
-
-function drawCircle(width, height, cx, cy, radius) {
-  const lines = [];
-
-  for (let h = 0; h < height; h++) {
-    let line = '';
-    for (let w = 0; w < width; w++) {
-      const d = distanceBetween([w, h], [cx, cy]);
-      const char = chooseChar(d, radius);
-      line += char;
-    }
-    lines.push(line);
+  for (const obj of objects) {
+    updateObject(obj);
+    drawObject(screen, obj);
   }
 
-  return lines.join('\n');
-}
-
-function main(args) {
-  const width = +args[0] || 30;
-  const height = +args[1] || 30;
-  const cx = +args[2] || 15;
-  const cy = +args[3] || 15;
-  const radius = +args[4] || 13;
-  console.log(drawCircle(width, height, cx, cy, radius));
-}
-
-main(Deno.args);
+  console.clear();
+  display(screen);
+}, 100);

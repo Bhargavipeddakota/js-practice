@@ -1,116 +1,78 @@
+import { chunk } from "jsr:@std/collections";
 function rolldice() {
   return Math.floor(Math.random() * 6) + 1;
 }
-const SNAKES = [[99, 54], [93, 67], [87, 54], [70, 55], [52, 42],[59,38],[48, 16], [28, 10]];
-const LADDERS = [[9, 27], [18, 37], [25, 54], [33, 51], [56, 64], [68, 88], [79, 100], [76, 97]];
+const board = Array.from({ length: 100 }, (_, i) => 100 - i);
+const SNAKES = {
+  99: 54,
+  93: 67,
+  87: 54,
+  70: 55,
+  52: 42,
+  59: 38,
+  48: 16,
+  28: 10,
+};
+
+const LADDERS = {
+  9: 27,
+  18: 37,
+  25: 54,
+  33: 51,
+  56: 64,
+  68: 88,
+  76: 97,
+  79: 100,
+};
+const CELL_SYMBOLS = {
+  both: "🤝",
+  p1: "1️⃣",
+  p2: "2️⃣",
+  finish: "🏁",
+  ladder: "🪜",
+  snake: "🐍",
+};
+const CELL_CHECKS = {
+  both: (n, p) => p[0] === n && p[1] === n,
+  p1: (n, p) => p[0] === n,
+  p2: (n, p) => p[1] === n,
+  finish: (n) => n === 100,
+  ladder: (n) => n in LADDERS,
+  snake: (n) => n in SNAKES,
+};
 
 function getCellSymbol(number, positions) {
-  if (positions[0] === number && positions[1] === number) {
-    return "🤝";
-  }
-  if (positions[0] === number) {
-    return "1️⃣";
-  }
-  if (positions[1] === number) {
-    return "2️⃣";
-  }
-  if (number === 100) {
-    return "🏁";
-  }
-  if (isLadder(number)) {
-    return "🪜";
-  }
-  if (isSnake(number)) {
-    return "🐍";
-  }
-  return number + "";
-}
-
-function bgRed(text) {
-  return "\x1B[41m" + text + "\x1B[0m";
-}
-
-function drawBoard(positions) {
-  console.clear();
-  let board = "";
-  const size = 10;
-  board = getRows(size, board, positions);
-  console.log(board);
-}
-
-function getRows(size, board, positions) {
-  let number = 100;
-  for (let rows = 0; rows < size; rows++) {
-    let row = [];
-    for (let col = 0; col < size; col++) {
-      let cellValue = getCellSymbol(number, positions);
-      row.push(cellValue.padStart(4, " "));
-      number--;
+  for (const key in CELL_CHECKS) {
+    if (CELL_CHECKS[key](number, positions)) {
+      return CELL_SYMBOLS[key];
     }
-
-    board = combineRows(rows, row, board);
   }
-  return board;
+  return number.toString();
 }
 
-function combineRows(rows, row, board) {
-  if (rows % 2 === 1) {
-    row.reverse();
-  }
-  board += row.join("  ") + "\n\n";
-  return board;
-}
+const drawBoard = (board, positions) => {
+  console.clear();
+  const rows = chunk(board, 10);
+  const output = rows.map(
+    (r, i) => {
+      const displayRow = (i % 2 === 0) ? r : r.reverse();
+      return displayRow.map((cell) =>
+        getCellSymbol(cell, positions).padStart(3, " ")
+      ).join(" ");
+    },
+  ).join("\n");
+  console.log(output);
+};
 
 function getPlayerDetalis() {
   const players = [];
   players[0] = prompt("enter player1 name");
   players[1] = prompt("enter player2 name");
   const positions = [1, 1];
-  return [players, positions]
+  return [players, positions];
 }
-function isSnake(number) {
-  for (let index = 0; index < SNAKES.length; index++) {
-    if (SNAKES[index][0] === number) {
-      return true;
-    }
-  }
-  return false;
-}
-
-function isLadder(number) {
-  for (let index = 0; index < SNAKES.length; index++) {
-    if (LADDERS[index][0] === number) {
-      return true;
-    }
-  }
-  return false;
-}
-
-function getTailValue(number) {
-  for (let index = 0; index < SNAKES.length; index++) {
-    ;
-    if (SNAKES[index][0] === number) {
-      return SNAKES[index][1];
-    }
-  }
-}
-
-function getLadderValue(number) {
-  for (let index = 0; index < SNAKES.length; index++) {
-    if (LADDERS[index][0] === number) {
-      return LADDERS[index][0];
-    }
-  }
-}
-
 function checkSnakeOrLadder(position) {
-  if (isSnake(position)) {
-    return getTailValue(position);
-  }
-  if (isLadder(position)) {
-    return getLadderValue(position);
-  }
-  return position;
+  return SNAKES[position] || LADDERS[position] || position;
 }
 
 function hasWon(positions, turn) {
@@ -145,7 +107,7 @@ function playGame() {
     if (hasWon(positions, turn)) {
       return composeWinMessage(players, turn);
     }
-    drawBoard(positions);
+    drawBoard(board, positions);
     getPosition(positions, turn, players);
     showMsg(positions, players, turn);
     turn = (turn + 1) % 2;

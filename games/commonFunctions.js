@@ -6,16 +6,19 @@ export const createScreen = (width, height,char) => {
   }
   return screen;
 };
-export const display = (screen,) => {
-  for (const i in screen) {
-    console.log(screen[i].join(" ").slice(0,99));
+
+export const display = (screen) => {
+  console.log(screen.map((row) => row.join("")).join("\n"));
+};
+ export const drawObject = (screen, obj) => {
+  if (obj.y >= 0 && obj.y < screen.length &&
+      obj.x >= 0 && obj.x < screen[0].length) {
+    screen[obj.y][obj.x] = obj.char;
   }
 };
-export const drawOnScreen = (screen, y, x, char) => screen[y][x] = char;
-export const clearScreen = (screen,char) => {
-  for (const i in screen) {
-    for (const j in screen[i]) {
-      screen[i][j] = char;
-    }
+
+export const clearScreen = (screen) => {
+  for (let i = 0; i < screen.length; i++) {
+    screen[i].fill(" ");
   }
 };
