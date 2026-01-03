@@ -18,11 +18,11 @@ const centerX = 25;
 const centerY = 10;
 const radius = 7;
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 6; i++) {
   objects.push({
     x: 0,
     y: 0,
-    angle: i * (360 / 10),
+    angle: i * (360 / 6),
     // angle :(i*100),
     char: "⏺",
     radius,
@@ -32,7 +32,7 @@ for (let i = 0; i < 10; i++) {
 }
 
 setInterval(() => {
-  clearScreen(screen);
+  clearScreen(screen," ");
 
   for (const obj of objects) {
     updateObject(obj);

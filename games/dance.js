@@ -1,43 +1,50 @@
-let init = 1;
-function custom(text, code) {
-  return "\x1B[38;5;" + (code /* init++ */) % 231 + "m" + text + "\x1B[0m";
-}
-const message = Deno.args[0] || 'Enter something via terminal';
-
-function delay() {
-  for (let _ = 0; _ < 11e8; _++);
-}
-
-function animateText(text) {
-  console.log(custom(text, 136));
-  delay();
-  console.clear();
-
-}
-const man = [`
- (o _ o)/
+const man = [
+  ` (o _ o)/
 <)     )
  /     \\`,
+
   `\\(- _ -)
    (     (>
    /     \\`,
-  `\(o _ o)/
+
+  ` (o _ o)/
   )     (
   /     \\`,
-  `(- _ -)
-<)     (>`,
-  `(o _ o)
+
+  ` (- _ -)
+<)     (> `,
+
+  ` (o _ o)
 -)   -(
  /    \\`,
-  `(o _ o)
+
+  ` (o _ o)
  )-    (-
- /    \\`
-]
-// let t = '( -  _  - )'.repeat(1) + '\n';
-// let c = '( O  _  O )'.repeat(1) + '\n';
-// for (let index = 0; index < message.length; index++) {
-// buffer.push(message[index]);
-let current = 0;
-while (true) {
-  animateText(man[current++ % man.length]);
-}
+ /    \\`,
+];
+
+const styles = [
+  "color: red",
+  "color: orange",
+  "color: green",
+  "color: blue",
+  "color: purple",
+  "color: cyan",
+];
+
+const animate = () => {
+  let i = 0;
+
+  setInterval(() => {
+    console.clear();
+
+    console.log(
+      `%c ${man[i % man.length]}`,
+      styles[i % styles.length],
+    );
+
+    i++;
+  }, 300);
+};
+
+animate();

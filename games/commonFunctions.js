@@ -17,8 +17,8 @@ export const display = (screen) => {
   }
 };
 
-export const clearScreen = (screen) => {
+export const clearScreen = (screen,char) => {
   for (let i = 0; i < screen.length; i++) {
-    screen[i].fill(" ");
+    screen[i].fill(char);
   }
 };
