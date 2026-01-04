@@ -16,20 +16,26 @@ const moves = {
 const handleMove = (board, { type, row, col }) => {
   const move = moves[type];
   if (!move.isValid(board, row, col)) {
-    console.log("Invalid move!");
-    return 0;
+    return { delta: 0, message: "Invalid move!" };
   }
-  return move.apply(board, row, col);
+  return { delta: move.apply(board, row, col), message: null };
 };
+
 
 const playQueenGame = (n) => {
   const board = createBoard(n);
   let queensPlaced = 0;
-  while (queensPlaced < n) {
+  const maxQueens = n === 2 || n === 3 ? n - 1 : n;
+ printBoard(board);
+  while (queensPlaced < maxQueens) {
+  const move = parseMove(getMoveInput());
+  const result = handleMove(board, move);
     printBoard(board);
-    const move = parseMove(getMoveInput());
-    queensPlaced += handleMove(board, move);
+  if (result.message) {
+    console.log(result.message); 
   }
+  queensPlaced += result.delta;
+}
   printBoard(board);
   console.log("All Queens are placed");
 };

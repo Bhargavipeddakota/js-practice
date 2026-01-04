@@ -17,7 +17,7 @@ const borders = {
 
 const getRowString = (rowIndex, row) => {
   let rowStr = `${rowIndex}  │`;
-  for (const cell of row) rowStr += ` ${cell ? "Q" : "."} │`;
+  for (const cell of row) rowStr += ` ${cell ? "Q" : " "} │`;
   return rowStr;
 };
 
