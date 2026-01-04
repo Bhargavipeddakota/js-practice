@@ -18,7 +18,7 @@ const isAdjacentDiagonalSafe = (board, row, col) =>
     return !isInLimit(board, r, c) || board[r][c] !== 1;
   });
 
-const isSafe = (board, row, col) =>
+export const isSafe = (board, row, col) =>
   isInLimit(board, row, col) &&
   isRowSafe(board, row) &&
   isColSafe(board, col) &&

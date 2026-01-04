@@ -32,14 +32,26 @@ const playQueenGame = (n) => {
   const result = handleMove(board, move);
     printBoard(board);
   if (result.message) {
-    console.log(result.message); 
+    console.log(`%c${result.message}`,"color:red"); 
   }
   queensPlaced += result.delta;
 }
   printBoard(board);
-  console.log("All Queens are placed");
+  console.log("%cAll Queens are placed","color:pink");
 };
 
-playQueenGame(10);
+const startGame = () => {
+  console.clear();
+  console.log("%c     ---Welcome to the N-Queens Game! 👑---", "color: yellow; font-weight: bold;");
+  console.log("You will place queens (Q) on the board.");
+  console.log("Unsafe positions are marked with 'x'.\n");
 
+  let n = parseInt(prompt("Enter the board size (N x N):"));
+  while (isNaN(n) || n < 2) {
+    n = parseInt(prompt("Invalid input! Enter a number >= 2:"));
+  }
+
+  playQueenGame(n);
+};
+startGame();
 
