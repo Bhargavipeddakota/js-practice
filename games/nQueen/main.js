@@ -1,15 +1,6 @@
 import { isValidPlace, isValidRemove } from "./validation.js";
 import { getMoveInput, parseMove } from "./input.js";
-
-const createBoard = (n) => Array.from({ length: n }, () => Array(n).fill(0));
-
-const printBoard = (board) => {
-  console.clear();
-  board.forEach((row) =>
-    console.log(row.map(c => (c ? "Q" : ".")).join(" "))
-  );
-  console.log("\n");
-};
+import {createBoard,printBoard} from "./board.js"
 
 const moves = {
   place: {
@@ -43,6 +34,6 @@ const playQueenGame = (n) => {
   console.log("All Queens are placed");
 };
 
-playQueenGame(5);
+playQueenGame(10);
 
 
