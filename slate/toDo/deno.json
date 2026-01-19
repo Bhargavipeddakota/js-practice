@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "test" : "deno test -A "
+  },
+  "imports": {
+    "@inquirer/prompts": "npm:@inquirer/prompts@^8.2.0",
+    "@std/asserts":"jsr:@std/asserts"
+  }
+}
