@@ -39,10 +39,45 @@ const isSafe = (board, row, col) =>
   isColSafe(board, col) &&
   isAdjacentDiagonalSafe(board, row, col);
 
+const isValidPlaceMove = (board, row, col) =>
+  isInLimit(board, row, col) &&
+  board[row][col] === 0 &&
+  isSafe(board, row, col);
+
+const isValidRemoveMove = (board, row, col) =>
+  isInLimit(board, row, col) &&
+  board[row][col] === 1;
+const handleMove = (board, move) => {
+  const { type, row, col } = move;
+
+  if (type === "place" && isValidPlaceMove(board, row, col)) {
+    return move;
+  }
+
+  if (type === "remove" && isValidRemoveMove(board, row, col)) {
+    return move;
+  }
+
+  return null;
+};
+const parseMove = (input) => {
+  if (input.startsWith("r")) {
+    const [row, col] = input.slice(1).trim().split(",").map(Number);
+    return { type: "remove", row, col };
+  }
+
+  const [row, col] = input.split(",").map(Number);
+  return { type: "place", row, col };
+};
+
 const getUserMove = (board) => {
   while (true) {
-    const [row, col] = getMoveInput();
-    if (isSafe(board, row, col)) return [row, col];
+    const input = getMoveInput();
+    const move = parseMove(input);
+    const validMove = handleMove(board, move);
+
+    if (validMove) return validMove;
+
     console.log("Invalid move! Try again.");
   }
 };

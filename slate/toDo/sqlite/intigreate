@@ -1,0 +1,13 @@
+// import { DB } from "https://deno.land/x/sqlite/mod.ts";
+// import { SqliteTodoRepository } from "./SqliteTodoRepository.js";
+// import { SqliteTaskRepository } from "./SqliteTaskRepository.js";
+// import { TodoManager } from "./todoManager.js";
+// import { TaskManager } from "./taskManager.js";
+
+// const db = new DB("todo.db");
+
+// const todoRepository = new SqliteTodoRepository(db);
+// const taskRepository = new SqliteTaskRepository(db);
+
+// const todoManager = new TodoManager(todoRepository);
+// const taskManager = new TaskManager(taskRepository);

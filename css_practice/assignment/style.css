@@ -1,0 +1,37 @@
+body{
+ margin: 1px 200px 0px 200px;
+ background-color: whitesmoke;
+ font-family: serif;
+}
+.content{
+ border: 0px black solid;
+ padding: 1em 5em 1em 5em;
+ background-color: white;
+ line-height: 1.7em;
+}
+p{
+  font-family: serif;
+  color: #444;
+  font-size:20px;
+  line-height: 2em;
+}
+#lable1{
+  border-bottom: 1px #AAA solid;
+  padding: 1em 0em 3em 0em;
+  color: #888;
+}
+#lable2{
+  border-bottom: 2px #444 solid;
+  border-top: 2px #444 solid;
+  /* border: 2px 0px 20px 0px #444 solid; */
+  padding: 3em 0em 3em 0em;
+  
+}
+#habit{
+border: 1px black solid;
+padding: 1em 4em 1em 4em;
+ background-color: white;
+ line-height: 3em;
+ font-family: sans-serif;
+ font-weight: 100;
+}

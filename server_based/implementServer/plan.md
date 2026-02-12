@@ -1,0 +1,29 @@
+- A request comes
+  - method
+  - path
+  - protocol
+  - headers [optional]
+- Parse request
+  - { method, path, protocol, headers }
+- Handle request
+  - path
+  - based on the path, read the corresponding content and send the response
+  - read the corresponding file --> content
+- Create/Build response
+  - Status code [success or failure]
+  - Status msg [OK, Not found]
+  - Response headers [content-type , content-length, date, <my-header> ]
+  - Response body - [content]
+
+- Paths --> files
+  - / --> sample.html
+  - /sample --> sample.html
+  - /animals --> animals.html
+  - /birds --> birds.html
+  - /step-11 --> 404 Not found
+
+- Response
+  - status code
+  - status msg
+  - headers
+  - body

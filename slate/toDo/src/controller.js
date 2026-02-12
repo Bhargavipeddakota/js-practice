@@ -1,6 +1,5 @@
 import { askTitle, chooseTask } from "../src/menu.js";
 
-// Each operation is its own function
 const addTaskOp = async (taskManager) => {
   console.clear();
   const title = await askTitle();
@@ -8,7 +7,7 @@ const addTaskOp = async (taskManager) => {
 };
 
 const viewTaskOp = (taskManager) => {
-  console.clear(); // clear only for this view
+  console.clear();
   const tasks = taskManager.getTasks();
   if (!tasks.length) {
     console.log("No tasks available.");
@@ -45,7 +44,6 @@ const removeTaskOp = async (taskManager) => {
   taskManager.removeTask(index);
 };
 
-// Factory function returns operations object
 export const createController = (taskManager) => ({
   addTask: () => addTaskOp(taskManager),
   viewTask: () => viewTaskOp(taskManager),

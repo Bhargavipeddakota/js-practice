@@ -9,7 +9,7 @@ const getColumnHeader = (n) => {
 const getBorderLine = (length, left,junction, right) => {
   const cell = "─".repeat(3);
   return "   " + left + Array(length - 1).fill(cell + junction).join("") + cell + right;
-};
+};  
 const borders = {
   top:    (length) => getBorderLine(length, "┌", "┬", "┐"),
   middle: (length) => getBorderLine(length, "├", "┼", "┤"),
@@ -23,11 +23,11 @@ const cellTypes = {
   },
   unsafe: {
     symbol: "x",
-    style: "color: rgba(255, 187, 71, 1);",
+    style: "color: rgba(255, 187, 71, 1);font-weight: bold;",
   },
   safe: {
     symbol: " ",
-    style: "color: deepgreen;",
+    style: "color: rgba(0, 255, 132, 10);font-weight: bold;",
   },
 };
 
@@ -55,6 +55,7 @@ export const printBoard = (board) => {
   console.clear();
   const n = board.length;
   console.log("%c    N-Queens Game 👑!   ","color:pink")
+  console.log(`\nYou Have To Place ${n} queens to Complete.\n `);
   console.log(getColumnHeader(n));
   console.log(borders.top(n));
 

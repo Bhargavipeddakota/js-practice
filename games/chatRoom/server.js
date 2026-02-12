@@ -1,38 +1,64 @@
 const listener = Deno.listen({
-  "port": 8000,
-  "transport": "tcp",
+  port: 8000,
+  transport: "tcp",
 });
 
-const clients = new Set();
+console.log("Chat server running on port 8000");
 
-const broadCastMsg = async (msg, sender) => {
-  const encoder = new TextEncoder();
-  for (const client of clients) {
-    if (client !== sender) {
-      await client.write(encoder.encode(msg));
+const chatMembers = new Map();
+const decoder = new TextDecoder();
+const encoder = new TextEncoder();
+
+const broadcastMsg = async (msg, senderConn) => {
+  for (const conn of chatMembers.values()) {
+    if (conn !== senderConn) {
+        await conn.write(encoder.encode(msg));
     }
   }
 };
-const handleClint = async (conn) => {
-  const buff = new Uint8Array(1024);
-  const decoder = new TextDecoder();
+
+const getUserName = async (conn) => {
+  const buffer = new Uint8Array(1024);
+
+  await conn.write(encoder.encode("Welcome to the chat room!\n"));
+  await conn.write(encoder.encode("Enter your name: "));
+
+  const n = await conn.read(buffer);
+  if (n === null) return null;
+
+  return decoder.decode(buffer.slice(0, n)).trim();
+};
+
+const handleClient = async (conn) => {
+  const buffer = new Uint8Array(1024);
+
+  const userName = await getUserName(conn);
+  if (!userName) {
+    conn.close();
+    return;
+  }
+
+  chatMembers.set(userName, conn);
+  await broadcastMsg(`${userName} joined the chat\n`, conn);
+
   try {
     while (true) {
-      const n = await conn.read(buff);
-      const msg = decoder.decode(buff.slice(0, n));
-      if (msg.trim() === "exit" || n === null) {
-        break;
-      }
-      await broadCastMsg(msg, conn);
+      const n = await conn.read(buffer);
+      if (n === null) break;
+
+      const msg = decoder.decode(buffer.slice(0, n)).trim();
+      if (msg === "quit") break;
+
+      await broadcastMsg(`${userName}: ${msg}\n`, conn);
     }
   } finally {
-    clients.delete(conn);
+    chatMembers.delete(userName);
+    await broadcastMsg(`${userName} left the chat\n`, conn);
     conn.close();
   }
 };
 
 for await (const conn of listener) {
-  console.log("server connected");
-  clients.add(conn);
-  handleClint(conn, clients);
+  console.log("New client connected");
+  handleClient(conn);
 }

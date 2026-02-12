@@ -11,12 +11,3 @@ function draw() {
  stroke(rainbow[frameCount % rainbow.length]);
   line(0,0,v1.x,v1.y)
 }
-// function draw() {
-//  // background(255);
-//   translate(width/2,height/2)
-//   // v1 = p5.Vector.random2D();
-//   v1 = createVector(sin(random(0,360)),cos(random(0,360)))
-//   v1.mult(150)
-//  stroke(rainbow[frameCount % rainbow.length]);
-//   line(0,0,v1.x,v1.y)
-// }
