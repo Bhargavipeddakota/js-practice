@@ -1,6 +1,6 @@
 
   
-   jshdsjconst conn = await Deno.connect({
+  const conn = await Deno.connect({
   hostname: "127.0.0.1",
   port: 8001,
   transport: "tcp",
