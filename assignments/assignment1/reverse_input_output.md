@@ -1,7 +1,0 @@
-
-Expected Input and Output for reverse of a Number
-input  ->  output
-1      ->   1
-11     ->   11
-13     ->   31
-127    ->   721
