@@ -1,7 +1,9 @@
 body{
- margin: 1px 200px 0px 200px;
+ /* margin: 1px 200px 0px 200px; */
+ margin: 0 auto;
  background-color: whitesmoke;
  font-family: serif;
+ width:70%;
 }
 .content{
  border: 0px black solid;

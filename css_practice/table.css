@@ -1,0 +1,32 @@
+body{
+  width:70%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 15px auto;
+}
+.table{
+  width:100%;
+  border: 1px solid #555;
+  text-align: left;
+  border-collapse: collapse;
+}
+.table th{
+  background-color: gainsboro;
+  border-bottom: 1px solid #555;
+  font-weight: 500;
+
+}
+.table th,td {
+  text-align: left;
+    padding: 1em;
+}
+.table td {
+  font-weight: 300;
+  border-bottom: 1px solid #888;
+}
+/* .table tr:nth-child(2){
+  background-color: antiquewhite;
+} */
+ .table tr:hover{
+  background-color: azure;
+  color: blue;
+ }

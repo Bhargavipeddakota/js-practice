@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Document</title>
+</head>
+<style>
+  body {
+    background-color: black;
+  }
+
+  .outerBox {
+    height: 50%;
+    width: 33%;
+    border: 1px solid red;
+    position: fixed;
+    top: 25vh;
+    left: 55vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .inner-border {
+    border: 1px solid red;
+    position: absolute;
+    top: 6vh;
+    left: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #box1 {
+    height: 73%;
+    width: 78%;
+  }
+
+  #box2 {
+    height: 68%;
+    width: 73%;
+  }
+
+  #box3 {
+    height: 60%;
+    width: 63%;
+  }
+
+  #outer-img {
+    width: 10%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+
+  #inner-img1 {
+    width: 10%;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
+
+  #inner-img2 {
+    width: 10%;
+    position: absolute;
+    top: 180px;
+    right: 0px;
+  }
+
+  #inner-img3 {
+    width: 10%;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+  }
+
+  #inner-img4 {
+    width: 10%;
+    position: absolute;
+  }
+
+  #out-of-box {
+    width: 10%;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+  }
+</style>
+
+<body>
+  <div class="outerBox">
+    <img id=outer-img src="dino.png" alt="dino image">
+    <div class="inner-border" id="box1">
+      <img id=inner-img1 src="dino.png" alt="dino image">
+      <div class="inner-border" id="box2">
+        <img id=inner-img2 src="dino.png" alt="dino image">
+        <div class="inner-border" id="box3">
+          <img id=inner-img3 src="dino.png" alt="dino image">
+          <img id=inner-img4 src="dino.png" alt="dino image">
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
